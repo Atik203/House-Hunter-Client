@@ -1,13 +1,13 @@
 const Footer = () => {
   return (
     <div className="bg-gray-700">
-      <footer className="footer text-white p-12 md:p-12 md:flex md:gap-4 lg:grid ">
+      <footer className="footer text-white p-12 md:p-12 md:flex md:gap-4 lg:grid">
         <nav>
-          <header className="footer-title">TaskManage Services</header>
-          <a className="link link-hover">Exciting Task Management</a>
-          <a className="link link-hover">Creative design</a>
-          <a className="link link-hover">Event Planning</a>
-          <a className="link link-hover">Custom template</a>
+          <header className="footer-title">RentHouse Services</header>
+          <a className="link link-hover">Explore Rental Listings</a>
+          <a className="link link-hover">Property Management</a>
+          <a className="link link-hover">Tenant Resources</a>
+          <a className="link link-hover">Custom Property Searches</a>
         </nav>
 
         <nav>
@@ -46,7 +46,7 @@ const Footer = () => {
         </form>
       </footer>
       <p className="text-sm mb-1 text-center text-gray-300">
-        &copy;2023 All Rights Reserved | TaskManage
+        &copy;2023 All Rights Reserved | RentHouse
       </p>
     </div>
   );

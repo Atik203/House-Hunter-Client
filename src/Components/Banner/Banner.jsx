@@ -19,13 +19,14 @@ const Banner = () => {
         data-aos-duration="2000"
       >
         <h1 className="text-2xl md:text-3xl my-3 md:my-5 lg:text-5xl text-center text-black font-bold">
-          Simplify Your Task Management Experience Effortlessly
+          Find Your Perfect Rental Home with Ease
         </h1>
         <h3 className="text-center font-medium text-base md:text-xl">
-          Organize your projects and enhance collaboration effortlessly. We
-          offer the tools you need for streamlined task management and efficient
-          progress tracking.
+          Discover your dream rental property effortlessly. We provide the
+          resources you need for simplified house hunting and effective property
+          management.
         </h3>
+
         <div className="text-center mt-3">
           <Link to="/dashboard">
             <button className="btn bg-red-500 border-none text-white hover:bg-gray-400 hover:text-black">

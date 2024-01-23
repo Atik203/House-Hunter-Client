@@ -6,9 +6,9 @@ import Login from "./../Components/Login/Login";
 import Register from "./../Components/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import ManageTask from "../Pages/ManageTask/ManageTask";
-import CreateTask from "../Pages/CreateTask/CreateTask";
 import UpdateTask from "../Pages/UpdateTask/UpdateTask";
+import AddHouse from "../Pages/AddHouse/AddHouse";
+import ManageHouse from "../Pages/ManageHouse/ManageHouse";
 
 const router = createBrowserRouter([
   {
@@ -41,18 +41,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Navigate to="manage-task" replace />,
+        element: <Navigate to="manage-house" replace />,
       },
       {
-        path: "manage-task",
-        element: <ManageTask></ManageTask>,
+        path: "manage-house",
+        element: <ManageHouse></ManageHouse>,
       },
       {
-        path: "create-task",
-        element: <CreateTask></CreateTask>,
+        path: "create-house",
+        element: <AddHouse></AddHouse>,
       },
       {
-        path: "update-task/:id",
+        path: "update-house/:id",
         element: <UpdateTask></UpdateTask>,
       },
     ],

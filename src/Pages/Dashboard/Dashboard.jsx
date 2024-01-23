@@ -21,13 +21,13 @@ const Dashboard = () => {
   const links = (
     <>
       <li>
-        <DrawerLink to="/dashboard/manage-task">
-          <FaTasks></FaTasks> Manage Task
+        <DrawerLink to="/dashboard/manage-house">
+          <FaTasks></FaTasks> Manage House and Bookings
         </DrawerLink>
       </li>
       <li>
-        <DrawerLink to="/dashboard/create-task">
-          <FaRegEdit /> Create New Task
+        <DrawerLink to="/dashboard/create-house">
+          <FaRegEdit /> Add New House
         </DrawerLink>
       </li>
     </>
@@ -74,16 +74,7 @@ const Dashboard = () => {
           ></label>
           <ul className="menu p-4 w-80 bg-slate-700 text-white font-bold text-lg min-h-full">
             <div className="p-4">
-              <div className="flex items-center">
-                <img
-                  src={user?.photoURL}
-                  alt=""
-                  className="rounded-full mx-auto"
-                />
-              </div>
-              <h1 className="text-base text-center my-2">
-                {user?.displayName}
-              </h1>
+              <h1 className="text-base text-center my-2">{user?.name}</h1>
             </div>
             {/* Sidebar content here */}
             {links}
