@@ -6,26 +6,32 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        // Check if the user is authenticated on the server
-        const response = await axios.get("http://localhost:5000/authenticate");
-        console.log(response.data);
-        setUser(response.data.user); // Assuming your API returns the authenticated user data
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (userEmail) {
+      setLoading(true);
+      axios
+        .get(`http://localhost:5000/userByEmail/${userEmail}`)
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [userEmail]);
 
-    fetchUser();
-  }, []);
-  console.log(user);
-  const AuthInfo = { user, loading };
+  const logout = () => {
+    setUser(null);
+    setUserEmail(null);
+  };
+
+  const AuthInfo = { user, userEmail, loading, setUserEmail, logout };
 
   return (
     <AuthContext.Provider value={AuthInfo}>{children}</AuthContext.Provider>

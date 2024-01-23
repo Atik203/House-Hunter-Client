@@ -5,7 +5,9 @@ import { AuthContext } from "../Providers/AuthProvider";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
-
+  if (!user) {
+    return <Navigate replace state={location.pathname} to="/login" />;
+  }
   if (loading) {
     return (
       <div className="mx-auto flex items-center justify-center">
@@ -14,11 +16,7 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  if (user) {
-    return children;
-  }
-
-  return <Navigate state={location.pathname} to="/login"></Navigate>;
+  return children;
 };
 
 export default PrivateRoute;

@@ -8,7 +8,7 @@ import useAxiosSecure from "./../../Hooks/useAxiosSecure";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { setUserEmail } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -42,6 +42,8 @@ const Login = () => {
       .then((res) => {
         // Assuming your server responds with a success message upon successful login
         if (res.data) {
+          const userEmail = email;
+          setUserEmail(userEmail);
           toast.success("Login Successfully", {
             position: "top-right",
             autoClose: 2000,

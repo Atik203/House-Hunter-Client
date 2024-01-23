@@ -6,9 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./../../Providers/AuthProvider";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
-  const { displayName, photoURL } = user || {};
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const { userEmail, user, logout } = useContext(AuthContext);
+  const { name } = user || {};
+  console.log(user);
   const handleLogout = () => {
     logout()
       .then(
@@ -51,23 +51,6 @@ const Navbar = () => {
       </li>
     </>
   );
-
-  const menuLinks = (
-    <>
-      <li>
-        <p className="text-base font-semibold">{displayName}</p>
-      </li>
-      <li>
-        <button onClick={handleLogout} className="text-red-500 font-bold">
-          Logout
-        </button>
-      </li>
-    </>
-  );
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
 
   return (
     <div className="w-11/12 mx-auto rounded-xl">
@@ -112,24 +95,16 @@ const Navbar = () => {
           <ul className="menu font-medium menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          {user ? (
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <div className="mx-auto relative">
-                <img
-                  src={photoURL}
-                  className="h-12 w-12 rounded-full ml-5 cursor-pointer"
-                  alt=""
-                  onClick={toggleDropdown}
-                />
-                {isDropdownOpen && (
-                  <div className="absolute top-14 right-0 mt-8 bg-white text-black shadow-md w-40 rounded-md z-[2]">
-                    <ul className="menu font-medium menu-sm p-2">
-                      {menuLinks}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
+          {userEmail ? (
+            <button>
+              <Link
+                to={"/"}
+                onClick={handleLogout}
+                className="btn btn-primary text-white border-none hover:text-white hover:bg-gray-400 bg-red-500"
+              >
+                Logout
+              </Link>
+            </button>
           ) : (
             <button>
               <Link
