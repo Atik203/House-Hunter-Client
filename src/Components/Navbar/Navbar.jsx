@@ -105,7 +105,7 @@ const Navbar = () => {
               alt="filled-like--v1"
               className="inline"
             />{" "}
-            TaskManage
+            House Hunter
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

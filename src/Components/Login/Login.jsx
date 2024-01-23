@@ -8,6 +8,7 @@ import useAxiosSecure from "./../../Hooks/useAxiosSecure";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -17,13 +18,15 @@ const Login = () => {
   const axiosSecure = useAxiosSecure();
   const [RegError, setRegError] = useState("");
   const [showPass, setshowPass] = useState(false);
-  const { signIn } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { email, password } = data;
+
     console.log(email, password);
+
     if (password.length < 6) {
       setRegError("Password should be at least 6 characters long");
       return;
@@ -34,32 +37,39 @@ const Login = () => {
 
     setRegError(""); // Clear any previous registration errors
 
-    signIn(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        toast.success("Login Successfully", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        navigate(location?.state ? location.state : "/");
+    axiosSecure
+      .post("/userLogin", data)
+      .then((res) => {
+        // Assuming your server responds with a success message upon successful login
+        if (res.data) {
+          toast.success("Login Successfully", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            onClose: () => {
+              navigate(location?.state ? location.state : "/");
+            },
+          });
+        } else {
+          setRegError("Invalid email or password");
+          toast.error("Invalid email or password", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
       })
       .catch((error) => {
-        toast.error("Enter a valid password or email", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
         setRegError(error.message);
       });
   };

@@ -1,11 +1,10 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { AuthContext } from "../../Providers/AuthProvider";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,12 +15,11 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const axiosSecure = useAxiosSecure();
-  const { createUser } = useContext(AuthContext);
   const [RegError, setRegError] = useState("");
   const [showPass, setshowPass] = useState(false);
 
-  const onSubmit = (data) => {
-    const { name, email, number, password, accepted } = data;
+  const onSubmit = async (data) => {
+    const { name, email, number, password, accepted, role } = data;
     console.log(data);
     const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*$/;
     if (password.length < 6) {
@@ -67,18 +65,32 @@ const Register = () => {
         progress: undefined,
         theme: "light",
       });
-
       return;
     }
-
     setRegError("");
-    createUser(email, password)
-      .then((useCredential) => {
-        const user = useCredential.user;
-
-        const userInfo = { name, email, number };
-        axiosSecure.post("/users", userInfo).then((res) => {
+    axiosSecure
+      .post("/register", data)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
           toast.success("Registration Completed Successfully", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            onClose: () => {
+              // Perform navigation after the toast is closed
+              navigate(location?.state ? location.state : "/");
+            },
+          });
+          // navigate(location?.state ? location.state : "/");
+        } else if (res.data.insertedId === null) {
+          setRegError("User with this email already exists");
+          toast.error("User with this email already exists", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -88,11 +100,8 @@ const Register = () => {
             progress: undefined,
             theme: "light",
           });
-          navigate(location?.state ? location.state : "/");
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          return;
+        }
       })
       .catch((error) => setRegError(error.message));
   };
@@ -154,8 +163,8 @@ const Register = () => {
                 required
                 placeholder="options"
               >
-                <option value="Low">Owner</option>
-                <option value="Moderate">Renter</option>
+                <option value="Owner">Owner</option>
+                <option value="Renter">Renter</option>
               </select>
             </div>
             <div className="form-control">
