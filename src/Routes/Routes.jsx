@@ -9,6 +9,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import UpdateTask from "../Pages/UpdateTask/UpdateTask";
 import AddHouse from "../Pages/AddHouse/AddHouse";
 import ManageHouse from "../Pages/ManageHouse/ManageHouse";
+import ManageBooking from "./../Pages/ManageBooking/ManageBooking";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "manage-house",
         element: <ManageHouse></ManageHouse>,
+      },
+      {
+        path: "manage-booking",
+        element: <ManageBooking></ManageBooking>,
       },
       {
         path: "create-house",

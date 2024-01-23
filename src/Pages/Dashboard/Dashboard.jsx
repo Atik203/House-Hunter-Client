@@ -18,7 +18,7 @@ const DrawerLink = ({ to, children }) => (
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
-  const links = (
+  const Ownerlinks = (
     <>
       <li>
         <DrawerLink to="/dashboard/manage-house">
@@ -28,6 +28,15 @@ const Dashboard = () => {
       <li>
         <DrawerLink to="/dashboard/create-house">
           <FaRegEdit /> Add New House
+        </DrawerLink>
+      </li>
+    </>
+  );
+  const renterLinks = (
+    <>
+      <li>
+        <DrawerLink to="/dashboard/manage-booking">
+          <FaTasks></FaTasks> Manage Bookings
         </DrawerLink>
       </li>
     </>
@@ -77,7 +86,7 @@ const Dashboard = () => {
               <h1 className="text-base text-center my-2">{user?.name}</h1>
             </div>
             {/* Sidebar content here */}
-            {links}
+            {user?.role === "Owner" ? Ownerlinks : renterLinks}
             <div className="divider divider-neutral"></div>
             {menuLinks}
           </ul>
