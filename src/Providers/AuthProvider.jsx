@@ -13,7 +13,9 @@ const AuthProvider = ({ children }) => {
     if (userEmail) {
       setLoading(true);
       axios
-        .get(`http://localhost:5000/userByEmail/${userEmail}`)
+        .get(
+          `https://house-hunter-server-beige.vercel.app/userByEmail/${userEmail}`
+        )
         .then((response) => {
           setUser(response.data);
         })
